@@ -7,12 +7,16 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement Settings")]
     public float movementSpeed = 10f;
     private Vector3 movementInput;
+    public AudioClip[] footstepSounds;
+    bool walking;
 
     Rigidbody rb;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+
+        InvokeRepeating("PlayFootstepsAudio", 0, 0.4f);
     }
 
     private void FixedUpdate()
@@ -30,5 +34,25 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = (playerRight * movementInput.z + -playerForward * movementInput.x); // Apply inputs based on player facing direction
 
         rb.velocity = moveDir.normalized * movementSpeed * Time.deltaTime; // Apply movement
+        
+        if(rb.velocity != Vector3.zero)
+        {
+            walking = true;
+        }
+
+        else
+        {
+            walking = false;
+        }
+    }
+
+    public void PlayFootstepsAudio()
+    {
+        if (walking)
+        {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = footstepSounds[Random.Range(0, footstepSounds.Length)];
+            audio.Play();
+        }
     }
 }
