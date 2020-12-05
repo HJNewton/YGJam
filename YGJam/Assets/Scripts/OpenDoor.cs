@@ -8,7 +8,7 @@ public class OpenDoor : MonoBehaviour
     public float openActivationRadius;
     public Animator animator;
     public bool isLocked;
-    bool isOpened = false;
+    public bool isOpened = false;
 
     private void Start()
     {
