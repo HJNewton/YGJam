@@ -99,7 +99,7 @@ MonoBehaviour:
   pickupRadius: 0.5
   doorToUnlock: {fileID: 0}
   deathDoorKey: {fileID: 0}
-  light: {fileID: 6300593684372399302}
+  lightGO: {fileID: 6300593684372399302}
   deathDoorKeyMaterial: {fileID: 0}
   canBePickedUp: 1
   pickupSounds:
