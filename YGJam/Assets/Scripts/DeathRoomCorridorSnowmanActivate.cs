@@ -27,7 +27,7 @@ public class DeathRoomCorridorSnowmanActivate : MonoBehaviour
             light.GetComponent<Light>().enabled = false;
         }
 
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(2f);
 
         snowman.SetActive(false);
 
