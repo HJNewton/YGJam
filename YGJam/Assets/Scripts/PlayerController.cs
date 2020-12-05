@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         Vector3 playerForward = transform.forward;
         Vector3 playerRight = transform.right; 
 
-        movementInput = new Vector3(-Input.GetAxisRaw("Vertical"), 0, Input.GetAxisRaw("Horizontal")); // Get inputs
+        movementInput = new Vector3(-Input.GetAxisRaw("Vertical"), 0f, Input.GetAxisRaw("Horizontal")); // Get inputs
 
         Vector3 moveDir = (playerRight * movementInput.z + -playerForward * movementInput.x); // Apply inputs based on player facing direction
 
