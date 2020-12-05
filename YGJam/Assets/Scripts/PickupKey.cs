@@ -8,8 +8,10 @@ public class PickupKey : MonoBehaviour
     public float pickupRadius;
     public GameObject doorToUnlock;
     public GameObject deathDoorKey;
+    public GameObject light;
     public Material deathDoorKeyMaterial;
     public bool canBePickedUp;
+    public AudioClip[] pickupSounds;
 
     private void Update()
     {
@@ -30,11 +32,21 @@ public class PickupKey : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     UnlockDoor();
+                    PlayPickupAudio();
                     deathDoorKey.GetComponent<MeshRenderer>().material = deathDoorKeyMaterial;
-                    Destroy(gameObject);
+                    this.GetComponent<MeshRenderer>().enabled = false;
+                    light.GetComponent<Light>().enabled = false;
+                    Destroy(gameObject,1);
                 }
             }
         }
+    }
+
+    public void PlayPickupAudio()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = pickupSounds[Random.Range(0, pickupSounds.Length)];
+        audio.Play();
     }
 
     void UnlockDoor()

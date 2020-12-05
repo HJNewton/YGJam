@@ -38,7 +38,7 @@ public class BedroomSnowmanActivate : MonoBehaviour
             light.GetComponent<Light>().enabled = false;
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         snowman.SetActive(false);
         radio.GetComponent<AudioSource>().pitch = 1f;

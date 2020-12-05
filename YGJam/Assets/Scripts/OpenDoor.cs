@@ -9,6 +9,8 @@ public class OpenDoor : MonoBehaviour
     public Animator animator;
     public bool isLocked;
     public bool isOpened = false;
+    public AudioClip lockedSound;
+    public AudioClip[] openSounds;
 
     private void Start()
     {
@@ -17,10 +19,7 @@ public class OpenDoor : MonoBehaviour
 
     private void Update()
     {
-        if (!isLocked)
-        {
-            Open();
-        }
+        Open();
     }
 
     void Open()
@@ -31,13 +30,36 @@ public class OpenDoor : MonoBehaviour
         {
             if(hitCollider.CompareTag("Player"))
             {
-                if(Input.GetKeyDown(KeyCode.F) && !isOpened)
+                if(Input.GetKeyDown(KeyCode.F))
                 {
-                    animator.SetTrigger("Open");
-                    isOpened = true;
+                    if (!isOpened && !isLocked)
+                    {
+                        animator.SetTrigger("Open");
+                        PlayOpenAudio();
+                        isOpened = true;
+                    }
+
+                    if (isLocked)
+                    {
+                        PlayLockedAudio();
+                    }
                 }
             }
         }
+    }
+
+    public void PlayOpenAudio()
+    { 
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = openSounds[Random.Range(0, openSounds.Length)];
+        audio.Play();            
+    }
+
+    public void PlayLockedAudio()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = lockedSound;
+        audio.Play();
     }
 
     private void OnDrawGizmosSelected()
