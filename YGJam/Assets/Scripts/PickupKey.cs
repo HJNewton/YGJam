@@ -7,6 +7,8 @@ public class PickupKey : MonoBehaviour
     [Header("Key Settings")]
     public float pickupRadius;
     public GameObject doorToUnlock;
+    public GameObject deathDoorKey;
+    public Material deathDoorKeyMaterial;
     public bool canBePickedUp;
 
     private void Update()
@@ -28,6 +30,7 @@ public class PickupKey : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     UnlockDoor();
+                    deathDoorKey.GetComponent<MeshRenderer>().material = deathDoorKeyMaterial;
                     Destroy(gameObject);
                 }
             }
