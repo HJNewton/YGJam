@@ -82,9 +82,4 @@ public class PickupKey : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, pickupRadius);
     }
-
-    private void OnDestroy()
-    {
-        interactTextUI.enabled = false;
-    }
 }
