@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickupKey : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class PickupKey : MonoBehaviour
     public Material deathDoorKeyMaterial;
     public bool canBePickedUp;
     public AudioClip[] pickupSounds;
+    public Text interactTextUI;
+
+    private void Start()
+    {
+        interactTextUI = GameObject.FindGameObjectWithTag("InteractText").GetComponent<Text>();
+    }
 
     private void Update()
     {
@@ -37,6 +44,7 @@ public class PickupKey : MonoBehaviour
                     this.GetComponent<MeshRenderer>().enabled = false;
                     lightGO.GetComponent<Light>().enabled = false;
                     Destroy(gameObject,1);
+                    interactTextUI.enabled = false;
                 }
             }
         }
@@ -54,8 +62,29 @@ public class PickupKey : MonoBehaviour
         doorToUnlock.GetComponent<OpenDoor>().isLocked = false;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && canBePickedUp)
+        {
+            interactTextUI.enabled = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactTextUI.enabled = false;
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, pickupRadius);
+    }
+
+    private void OnDestroy()
+    {
+        interactTextUI.enabled = false;
     }
 }

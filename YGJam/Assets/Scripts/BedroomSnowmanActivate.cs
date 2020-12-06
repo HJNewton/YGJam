@@ -14,6 +14,11 @@ public class BedroomSnowmanActivate : MonoBehaviour
     private void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        if(snowman.activeInHierarchy)
+        {
+            snowman.transform.LookAt(player.transform.position);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

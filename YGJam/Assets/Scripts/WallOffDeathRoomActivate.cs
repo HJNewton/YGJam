@@ -20,4 +20,9 @@ public class WallOffDeathRoomActivate : MonoBehaviour
         door.SetActive(false);
         audioSource.Play();
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        this.gameObject.SetActive(false);
+    }
 }

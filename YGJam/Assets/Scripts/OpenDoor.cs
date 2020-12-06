@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OpenDoor : MonoBehaviour
 {
@@ -11,10 +12,12 @@ public class OpenDoor : MonoBehaviour
     public bool isOpened = false;
     public AudioClip lockedSound;
     public AudioClip[] openSounds;
+    public Text interactTextUI;
 
     private void Start()
     {
         animator = this.GetComponent<Animator>();
+        interactTextUI = GameObject.FindGameObjectWithTag("InteractText").GetComponent<Text>();
     }
 
     private void Update()
@@ -25,18 +28,19 @@ public class OpenDoor : MonoBehaviour
     void Open()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, openActivationRadius); // Get all overlapping colliders with this object
-
+        
         foreach (var hitCollider in hitColliders)
         {
             if(hitCollider.CompareTag("Player"))
             {
-                if(Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F))
                 {
                     if (!isOpened && !isLocked)
                     {
                         animator.SetTrigger("Open");
                         PlayOpenAudio();
                         isOpened = true;
+                        interactTextUI.enabled = false;
                     }
 
                     if (isLocked)
@@ -45,6 +49,22 @@ public class OpenDoor : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && !isOpened )
+        {
+            interactTextUI.enabled = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactTextUI.enabled = false;
         }
     }
 
