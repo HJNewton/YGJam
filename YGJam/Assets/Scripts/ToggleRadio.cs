@@ -9,11 +9,14 @@ public class ToggleRadio : MonoBehaviour
     public AudioSource audioSource;
     public float toggleRadius;
     public Text interactTextUI;
+    float startVolume;
+    bool off;
 
     private void Start()
     {
         audioSource = this.GetComponent<AudioSource>();
         interactTextUI = GameObject.FindGameObjectWithTag("InteractText").GetComponent<Text>();
+        startVolume = audioSource.volume;
     }
 
     private void Update()
@@ -31,7 +34,17 @@ public class ToggleRadio : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    audioSource.enabled = !audioSource.enabled;
+                    off = !off;
+
+                    if (off)
+                    {
+                        audioSource.volume = 0;
+                    }
+
+                    if (!off)
+                    {
+                        audioSource.volume = startVolume;
+                    }
                 }
             }
         }
