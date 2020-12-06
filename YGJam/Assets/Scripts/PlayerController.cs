@@ -58,6 +58,6 @@ public class PlayerController : MonoBehaviour
 
     public void TurnAround()
     {
-        transform.rotation = Quaternion.Euler(new Vector3(0, Mathf.LerpAngle(transform.rotation.y,-270, 100*Time.deltaTime), 0));
+        transform.rotation = Quaternion.Euler(new Vector3(0, -270, 0));
     }
 }

@@ -18,13 +18,14 @@ public class KnifeInteract : MonoBehaviour
     private void Start()
     {
         interactTextUI = GameObject.FindGameObjectWithTag("InteractText").GetComponent<Text>();
-        player = GameObject.FindGameObjectWithTag("Player");
 
         animator = this.GetComponent<Animator>();
     }
 
     private void Update()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+
         Interact();
     }
 
