@@ -9,7 +9,8 @@ public class KnifeInteract : MonoBehaviour
     public float interactRange;
     public Text interactTextUI;
     public GameObject player;
-    public GameObject playerKnife;
+    public GameObject mainCam;
+    public GameObject snowman;
     bool interacted;
 
     Animator animator;
@@ -39,6 +40,7 @@ public class KnifeInteract : MonoBehaviour
                 {
                     animator.SetTrigger("Kill");
                     player.GetComponent<PlayerController>().enabled = false;
+                    mainCam.GetComponent<MouseLook>().enabled = false;
                     interacted = true;
 
                     StartCoroutine("KillPlayer");
@@ -49,8 +51,12 @@ public class KnifeInteract : MonoBehaviour
 
     IEnumerator KillPlayer()
     {
-        yield return new WaitForSecondsRealtime(2.65f);
-        playerKnife.SetActive(true);
+        yield return new WaitForSecondsRealtime(3);
+        player.GetComponent<PlayerController>().TurnAround();
+
+        this.GetComponent<MeshRenderer>().enabled = false;
+
+        snowman.SetActive(true);
     }
 
     private void OnTriggerStay(Collider other)

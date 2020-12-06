@@ -55,4 +55,9 @@ public class PlayerController : MonoBehaviour
             audio.Play();
         }
     }
+
+    public void TurnAround()
+    {
+        transform.rotation = Quaternion.Euler(new Vector3(0, Mathf.LerpAngle(transform.rotation.y,-270, 100*Time.deltaTime), 0));
+    }
 }
